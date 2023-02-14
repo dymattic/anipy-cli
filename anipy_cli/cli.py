@@ -37,6 +37,9 @@ from .colors import colors, cinput, cprint
 from .download import download
 from .config import Config
 
+# initilaize config
+Config().__init__()
+
 # Make colors work in windows CMD
 os.system("")
 
