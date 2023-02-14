@@ -10,14 +10,18 @@ class SysNotFoundError(Exception):
 class Config:
     def __init__(self):
         self._config_file = self._get_config_path() / "config.yaml"
+        create_new = False
         try:
             with self._config_file.open("r") as conf:
                 self._yaml_conf = yaml.safe_load(conf)
             if self._yaml_conf is None:
                 # The config file is empty
                 self._yaml_conf = {}
+                create_new = True
         except FileNotFoundError:
             # There is no config file, create one
+            create_new = True
+        if create_new:
             print("No config file found. Creating...")
             self._yaml_conf = {}
             self._create_config()
